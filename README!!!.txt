@@ -1,0 +1,1 @@
+I have made this task using classes and logger, but without 'xml tree' approach.
