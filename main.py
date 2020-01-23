@@ -141,6 +141,15 @@ class File:
     def move_incorrect(self, file):
         shutil.move(self.input_path + file, self.incorrect_input_path + file)
 
+class Logger:
+    def __init__(self):
+        pass
+
+    def write_stat(self, file, book_name, paragraphs, words_number, letters):
+        f = open(processed_path + "logger.txt", "a")
+        f.write("\nFile: "+file+"\nBook name: "+book_name+"\nNumber of paragraphs: "+str(paragraphs))
+        f.write("\nNumber of words: "+str(words_number)+"\nNumber of letters: "+str(letters)+'\n')
+        f.close()
 
 def main():
     f = File(input_path, processed_path, incorrect_input_path)
@@ -163,10 +172,11 @@ def main():
         words = p.words_frequency(clean_text)
         s = SQLwriter_fb2(connection)
         s.create_populate_tables(book_name, paragraphs, words_number, letters, low_up_words, words)
+        l = Logger()
+        l.write_stat(file, book_name, paragraphs, words_number, letters)
         f.move_processed(file)
     else:
         pass
-
 
 if __name__ == '__main__':
     main()
